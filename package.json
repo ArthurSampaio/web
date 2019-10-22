@@ -1,0 +1,19 @@
+{
+  "name": "deepjscore",
+  "version": "0.0.1",
+  "description": "A set of studies into js architeture thoughts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js",
+    "studies",
+    "promises",
+    "callbacks",
+    "functional",
+    "programming"
+  ],
+  "author": "Arthur Sampaio",
+  "license": "ISC"
+}
