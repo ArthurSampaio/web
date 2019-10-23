@@ -15,5 +15,9 @@
     "programming"
   ],
   "author": "Arthur Sampaio",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.5.1"
+  }
 }
