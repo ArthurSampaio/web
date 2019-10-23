@@ -1,18 +1,36 @@
 const states = {
-  PEDING: 'peding',
-  RESOLVED: 'resolved',
-  REJECTED: 'rejected',
+  pending: 'pending',
+  resolved: 'resolved',
+  rejected: 'rejected',
 }
 
 class Promessa {
   constructor(ex) {
-    this.state = states.PEDING
+    const tryCall = cb => Promessa.try(() => cb(this.value))
+    const members = {
+      resolved: {
+        state: states.resolved,
+        then: tryCall, //onResolved => Promessa.resolve(onResolved(this.value)), //chain
+        catch: _ => this,
+      },
+      rejected: {
+        state: states.rejected,
+        then: _ => this,
+        catch: tryCall,
+      },
+      pending: {
+        state: states.pending,
+      },
+    }
+    const changeState = state => Object.assign(this, members[state])
+
     const getCb = state => value => {
       this.value = value
-      this.state = state
+      changeState(state)
     }
-    const resolve = () => getCb(states.RESOLVED)
-    const reject = () => getCb(states.REJECTED)
+    const resolve = getCb(states.resolved)
+    const reject = getCb(states.rejected)
+    changeState(states.pending)
     try {
       ex(resolve, reject)
     } catch (err) {
@@ -20,40 +38,35 @@ class Promessa {
     }
   }
   static resolve(val) {
-    new Promessa(resolve => resolve(val))
+    return new Promessa(resolve => resolve(val))
   }
   static reject(val) {
-    new Promessa(rejected => rejected(val))
+    return new Promessa((_, reject) => reject(val))
+  }
+  static try(cb) {
+    return new Promessa(resolve => resolve(cb()))
   }
 }
 
-const a = new Promessa(resolve => {
-  throw new Error('error')
-})
-console.log('Pass an error >>', a)
-
-const b = new Promessa(resolve => resolve(123))
-console.log('Pass a valid value for resolve >>', b)
-
-// Ignore
-let p = Promessa.reject(42)
-  .then(() => console.log('why')) // ignored
-  .then(() => console.log('you')) // ignored
-  .then(() => console.log('ignoring me?!')) // ignored!
-// p is a Nancy
-// p.state is states.rejected
-// p.value is 42
-
-const carry = output => input => {
-  console.log(input)
-  return output
+const anything = () => {
+  throw new Error('I can be anything because I should never get called!')
+}
+const throwSomethingWrong = () => {
+  console.log('not ignored!')
+  throw new Error('Something went wrong...')
 }
 
-// Chain
-p = Promessa.resolve(0)
-  .then(carry(1)) // logs 0
-  .then(carry(2)) // logs 1
-  .then(carry(3)) // logs 2
-// p is a Nancy
+console.log('>>', new Promessa(res => res(32)))
+
+const p = Promessa.reject(42)
+  .catch(value => value) // resolves
+  .catch(anything) // ignored
+  .catch(anything) // ignored
+  .then(value => console.log(value)) // logs 42
+  .then(throwSomethingWrong) // logs not ignored!
+  .catch(throwSomethingWrong) // logs not ignored!
+  .catch(() => 24) // resolves
+  .then(val => console.log(val))
+// p is a Promessa
 // p.state is states.resolved
-// p.value is 3
+// p.value is 24
