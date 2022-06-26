@@ -30,7 +30,7 @@ const fetchPromise = <T>(promise: Promise<T>) => {
     })
 
   return {
-    read() {
+    read(): T {
       console.log(status)
       if (status === "pending") {
         throw suspender
@@ -38,7 +38,7 @@ const fetchPromise = <T>(promise: Promise<T>) => {
         throw result
       }
 
-      return result
+      return result as T
     },
   }
 }
