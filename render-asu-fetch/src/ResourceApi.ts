@@ -13,6 +13,10 @@ export const ListResource = () => ({
   list: fetchPromise<Person[]>(fetchResult()),
 })
 
+export type Resource<T, Key extends PropertyKey> = Key extends string
+  ? Record<Key, { read: () => T }>
+  : never
+
 const fetchPromise = <T>(promise: Promise<T>) => {
   let result: T | null = null
   let status = "pending"
