@@ -17,6 +17,7 @@ export const List = ({ resource }: { resource: ListProps }) => {
     sorting: "default",
     header: "",
   })
+  const [term, setTerm] = useState("")
 
   const persons = result.map(({ location, name: { title, first, last } }) => ({
     name: `${title} ${first} ${last}`,
@@ -62,6 +63,17 @@ export const List = ({ resource }: { resource: ListProps }) => {
       }
     })
 
+  const filteredData = personTable.filter((p) => {
+    if (term) {
+      return Object.values(p).some((str) =>
+        str.toLocaleLowerCase().includes(term)
+      )
+    }
+    return true
+  })
+
+  console.log({ filteredData })
+
   const calcNextHeader = (header: Header): FocusedHead => {
     if (header === focusedHead.header) {
       switch (focusedHead.sorting) {
@@ -90,50 +102,73 @@ export const List = ({ resource }: { resource: ListProps }) => {
   }
 
   const headers = Object.keys(personTable[0]) as Header[]
-  console.log({ focusedHead })
 
   const getHeader = (header: Header) => {
     if (focusedHead.header === header) {
       switch (focusedHead.sorting) {
         case "default":
-          return <span className="underline underline-offset-4">{header}</span>
+          return (
+            <span className="underline underline-offset-4 px-3 min-w-[10rem] ">
+              {header}
+            </span>
+          )
         case "ascending":
-          return <span className="bg-green-700 text-white">{header}</span>
+          return (
+            <span className="bg-green-700 text-white px-3 min-w-[10rem]">
+              {header}
+            </span>
+          )
         default:
-          return <span className="bg-fuchsia-800 text-white	">{header}</span>
+          return (
+            <span className="bg-fuchsia-800 text-white px-3	min-w-[10rem]">
+              {header}
+            </span>
+          )
       }
     }
-    return header
+    return <span className="min-w-[10rem] px-3">{header}</span>
   }
 
   return (
-    <table className="table-fixed">
-      <thead>
-        <tr>
-          {headers.map((h) => (
-            <th
-              key={h}
-              onClick={() => {
-                console.log({ h })
-                setFocusedHead(calcNextHeader(h))
-              }}
-            >
-              {getHeader(h)}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {personTable.map((person) => {
-          return (
-            <tr key={person.name}>
-              {headers.map((h: string) => {
-                return <td key={h}>{person[h as keyof typeof person]}</td>
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <div className="flex flex-col items-center">
+      <div className="flex flex-col py-4">
+        {term}
+        <input
+          className="border "
+          onChange={(ev) => setTerm(ev.target.value)}
+        />
+      </div>
+      <table className="table-fixed min-w-[80%] w-[80%]">
+        <thead>
+          <tr>
+            {headers.map((h) => (
+              <th
+                key={h}
+                onClick={() => {
+                  setFocusedHead(calcNextHeader(h))
+                }}
+              >
+                {getHeader(h)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredData.map((person) => {
+            return (
+              <tr key={person.name}>
+                {headers.map((h: string) => {
+                  return (
+                    <td className="min-w-[10rem]" key={h}>
+                      {person[h as keyof typeof person]}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   )
 }

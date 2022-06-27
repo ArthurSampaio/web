@@ -9,9 +9,7 @@ function App() {
   return (
     <div className="text-center">
       <header>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <p>Render as You fetch</p>
       </header>
       <main>
         <p>Main</p>
