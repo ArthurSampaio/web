@@ -63,16 +63,17 @@ export const List = ({ resource }: { resource: ListProps }) => {
       }
     })
 
-  const filteredData = personTable.filter((p) => {
-    if (term) {
-      return Object.values(p).some((str) =>
-        str.toLocaleLowerCase().includes(term)
-      )
-    }
-    return true
-  })
-
-  console.log({ filteredData })
+  const filterPersonTableByTerm = (personTable: PersonOnTable[]) => {
+    const filteredData = personTable.filter((p) => {
+      if (term) {
+        return Object.values(p).some((str) =>
+          str.toLocaleLowerCase().includes(term)
+        )
+      }
+      return true
+    })
+    return filteredData
+  }
 
   const calcNextHeader = (header: Header): FocusedHead => {
     if (header === focusedHead.header) {
@@ -154,7 +155,7 @@ export const List = ({ resource }: { resource: ListProps }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredData.map((person) => {
+          {filterPersonTableByTerm(personTable).map((person) => {
             return (
               <tr key={person.name}>
                 {headers.map((h: string) => {
