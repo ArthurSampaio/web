@@ -3,6 +3,7 @@ import { ListResource } from "./ResourceApi"
 import "./App.css"
 import { List } from "./List"
 import { ErrorBoundary } from "./ErrorBoundary"
+import logo from "./logo.svg"
 
 const initialListResource = ListResource()
 
@@ -25,9 +26,22 @@ function App() {
           }}
         >
           Click me to reload
-        </button>
+        </button>{" "}
         <ErrorBoundary key={errorKey}>
-          <Suspense fallback={<h4>loading</h4>}>
+          <Suspense
+            fallback={
+              <div className="flex mt-14 justify-center items-center flex-col">
+                <strong>Loading</strong>
+                <img
+                  src={logo}
+                  width="100"
+                  height="100"
+                  className="App-logo"
+                  alt="logo"
+                />
+              </div>
+            }
+          >
             <div className="w-full min-w2-[90%] flex items-center justify-center mt-7">
               <List resource={listResource} />
             </div>
