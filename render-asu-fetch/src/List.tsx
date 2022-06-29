@@ -13,6 +13,7 @@ type FocusedHead = {
 
 export const List = ({ resource }: { resource: ListProps }) => {
   const result = resource.list.read()
+  console.log("List", { result })
   const [focusedHead, setFocusedHead] = useState({
     sorting: "default",
     header: "",
@@ -130,6 +131,7 @@ export const List = ({ resource }: { resource: ListProps }) => {
     return <span className="min-w-[10rem] px-3">{header}</span>
   }
 
+  console.log("here")
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col py-4">
