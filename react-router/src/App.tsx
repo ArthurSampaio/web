@@ -1,5 +1,10 @@
-import React from "react"
+import React, { FC } from "react"
+import { Route } from "./router"
 import "./App.css"
+
+const Home = () => <h2>Home</h2>
+const About = () => <h2>About</h2>
+const SeiLa = () => <h2>SeiLa</h2>
 
 function App() {
   return (
@@ -23,7 +28,11 @@ function App() {
         </nav>
       </header>
 
-      <main className="mt-10 ">Main content</main>
+      <main className="mt-10 ">
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/sei-la" component={SeiLa} />
+      </main>
     </div>
   )
 }
