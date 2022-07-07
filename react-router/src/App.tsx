@@ -34,15 +34,17 @@ function App() {
             </li>
           </ul>
           <h2 className="h-full flex items-center p-5 text-white text-xl">
-            Picachu
+            RRD - React Router for Dummies
           </h2>
         </nav>
       </header>
 
-      <main className="mt-10 " key={key}>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/sei-la" component={SeiLa} />
+      <main className="mt-10 ">
+        <React.Fragment key={key}>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/sei-la" component={SeiLa} />
+        </React.Fragment>
       </main>
     </div>
   )
