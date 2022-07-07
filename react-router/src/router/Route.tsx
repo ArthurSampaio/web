@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useLayoutEffect, useState, useEffect } from "react"
 
 type RenderProos = {
   match: Match
@@ -48,8 +48,35 @@ const matchPath = (pathName: string, options: MathOptions) => {
 }
 
 export const Route = ({ exact, component, path, render }: RouteProps) => {
+  const [statePop, setStatePop] = useState()
   const match = matchPath(window.location.pathname, { exact, path })
 
+  //   const [match, setMatch] = useState<any>()
+
+  const handlePop = (event: PopStateEvent) => {
+    console.log("handlePop")
+    setStatePop(event.state)
+  }
+
+  const urlChanged = (event: any) => {
+    console.log("urlChanged")
+    setStatePop(event.state)
+  }
+
+  useEffect(() => {
+    window.addEventListener("popstate", handlePop)
+    window.addEventListener("urlchanged", urlChanged)
+    return () => {
+      window.removeEventListener("popstate", handlePop)
+      window.removeEventListener("urlchanged", urlChanged)
+    }
+  }, [])
+
+  //   useLayoutEffect(() => {
+  //     setMatch(matchPath(window.location.pathname, { exact, path }))
+  //   }, [window.location.pathname, exact, path])
+
+  console.log("renderiza carai")
   if (!match) return null
 
   if (component) {
