@@ -1,13 +1,24 @@
-import React, { Suspense, useState } from "react"
+import React, { Suspense, useState, useEffect } from "react"
 import { ListResource } from "./ResourceApi"
 import { List } from "./List"
 import { ErrorBoundary } from "../ErrorBoundary"
 import logo from "../../logo.svg"
 
-const initialListResource = ListResource()
+// const initialListResource = ListResource()
 
 export function Dashboard() {
-  const [listResource, setListResource] = useState(initialListResource)
+  const [listResource, setListResource] = useState<any>({
+    list: {
+      read() {
+        return []
+      },
+    },
+  })
+
+  useEffect(() => {
+    setListResource(ListResource())
+  }, [])
+
   const [errorKey, setErrorKey] = useState(0)
 
   return (
