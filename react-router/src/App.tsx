@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Route, Link } from "./router"
+import { Route, Link, RouteProvider } from "./router"
 import "./App.css"
 
 const Home = () => <h2>Home</h2>
@@ -7,17 +7,6 @@ const About = () => <h2>About</h2>
 const SeiLa = () => <h2>SeiLa</h2>
 
 function App() {
-  const [key, setKey] = useState(0)
-  const urlChange = () => {
-    setKey((k) => k + 1)
-  }
-  useEffect(() => {
-    window.addEventListener("urlchanged", urlChange)
-    return () => {
-      window.removeEventListener("popstate", urlChange)
-    }
-  }, [])
-
   return (
     <div>
       <header className="sticky top-0 ">
@@ -40,11 +29,11 @@ function App() {
       </header>
 
       <main className="mt-10 ">
-        <React.Fragment key={key}>
+        <RouteProvider>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/sei-la" component={SeiLa} />
-        </React.Fragment>
+        </RouteProvider>
       </main>
     </div>
   )

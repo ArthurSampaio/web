@@ -48,27 +48,7 @@ const matchPath = (pathName: string, options: MathOptions) => {
 }
 
 export const Route = ({ exact, component, path, render }: RouteProps) => {
-  const [, setStatePop] = useState()
   const match = matchPath(window.location.pathname, { exact, path })
-
-  const handlePop = (event: PopStateEvent) => {
-    console.log("handlePop")
-    setStatePop(event.state)
-  }
-
-  const urlChanged = (event: any) => {
-    console.log("urlChanged")
-    setStatePop(event.state)
-  }
-
-  useEffect(() => {
-    window.addEventListener("popstate", handlePop)
-    window.addEventListener("urlchanged", urlChanged)
-    return () => {
-      window.removeEventListener("popstate", handlePop)
-      window.removeEventListener("urlchanged", urlChanged)
-    }
-  }, [])
 
   console.log("renderiza carai")
   if (!match) return null
