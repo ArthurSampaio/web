@@ -4,7 +4,7 @@ import "./App.css"
 
 const Home = () => <h2>Home</h2>
 const About = () => <h2>About</h2>
-const SeiLa = () => <h2>SeiLa</h2>
+const Dashboard = () => <h2>Dashboard</h2>
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li className="bg-red-500 hover:bg-red-700 rounded text-sm text-white p-3 mx-4">
-              <Link to="/sei-la">DashBoard</Link>
+              <Link to="dashboard">Dashboard</Link>
             </li>
             <li className="bg-red-500 hover:bg-red-700 rounded text-sm text-white p-3 float-left">
               <Link to="/about">About</Link>
@@ -32,7 +32,7 @@ function App() {
         <RouterProvider>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/sei-la" component={SeiLa} />
+          <Route path="/dashboard" component={Dashboard} />
         </RouterProvider>
       </main>
     </div>
