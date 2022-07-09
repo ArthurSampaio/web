@@ -32,7 +32,6 @@ const matchPath = (pathName: string, options: MathOptions) => {
   if (!match) {
     return null
   }
-  console.log({ match })
   const url = match[0]
   const isExact = pathName === url
 

@@ -1,10 +1,10 @@
 import React from "react"
-import { Route, Link, RouterProvider } from "./router"
+import { Route, Link, RouterProvider } from "./react-router"
+import { Dashboard } from "./components/dashboard/Dashboard"
 import "./App.css"
 
 const Home = () => <h2>Home</h2>
 const About = () => <h2>About</h2>
-const Dashboard = () => <h2>Dashboard</h2>
 
 function App() {
   return (
