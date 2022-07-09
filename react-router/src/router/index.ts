@@ -1,5 +1,5 @@
 import { Route } from "./Route"
 import { Link } from "./Link"
-import { RouteProvider } from "./context"
+import { RouterProvider } from "./context"
 
-export { Route, Link, RouteProvider }
+export { Route, Link, RouterProvider }

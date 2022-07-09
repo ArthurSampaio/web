@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Fragment } from "react"
 
-type RouteContextType = {}
+type RouterContextType = {}
 
-const RouteContext = React.createContext<RouteContextType | undefined>(
+const RouterContext = React.createContext<RouterContextType | undefined>(
   undefined
 )
 
@@ -10,7 +10,7 @@ type RouteProviderProps = {
   children: React.ReactNode
 }
 
-export const RouteProvider = ({ children }: RouteProviderProps) => {
+export const RouterProvider = ({ children }: RouteProviderProps) => {
   const [key, setKey] = useState(0)
   const urlChanged = () => {
     setKey((k) => k + 1)
@@ -26,8 +26,8 @@ export const RouteProvider = ({ children }: RouteProviderProps) => {
   }, [])
 
   return (
-    <RouteContext.Provider value={undefined}>
+    <RouterContext.Provider value={undefined}>
       <Fragment key={key}>{children}</Fragment>
-    </RouteContext.Provider>
+    </RouterContext.Provider>
   )
 }

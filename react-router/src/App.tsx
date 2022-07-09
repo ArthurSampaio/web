@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { Route, Link, RouteProvider } from "./router"
+import React from "react"
+import { Route, Link, RouterProvider } from "./router"
 import "./App.css"
 
 const Home = () => <h2>Home</h2>
@@ -29,11 +29,11 @@ function App() {
       </header>
 
       <main className="mt-10 ">
-        <RouteProvider>
+        <RouterProvider>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/sei-la" component={SeiLa} />
-        </RouteProvider>
+        </RouterProvider>
       </main>
     </div>
   )

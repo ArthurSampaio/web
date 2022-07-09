@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 
 type RenderProos = {
   match: Match
@@ -50,11 +50,9 @@ const matchPath = (pathName: string, options: MathOptions) => {
 export const Route = ({ exact, component, path, render }: RouteProps) => {
   const match = matchPath(window.location.pathname, { exact, path })
 
-  console.log("renderiza carai")
   if (!match) return null
 
   if (component) {
-    console.log({ component })
     const Component = component
     return <Component match={match} /> // React.createElement(component, { match })
   }
