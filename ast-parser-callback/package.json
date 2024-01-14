@@ -1,0 +1,21 @@
+{
+  "name": "ast-parse-callback",
+  "version": "1.0.0",
+  "description": "AST Parse",
+  "source": "src/index.ts",
+  "main": "dist/main.js",
+  "types": "dist/types.d.ts",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build",
+    "check": "tsc --noEmit",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@parcel/transformer-typescript-tsc": "^2.11.0",
+    "@parcel/transformer-typescript-types": "^2.11.0",
+    "parcel": "latest",
+    "typescript": "^5.3.3",
+    "jest": "24.8.0"
+  }
+}
